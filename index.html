@@ -5,22 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/logo_saja_GI.png">
-
-    <!-- Panggil Konva -->
+    <!-- Konva -->
     <script src="https://unpkg.com/konva@8.3.13/konva.min.js"></script>
-
     <!-- File CSS -->
     <link href="./css/style.css" rel="stylesheet">
     <title>PT. Globalindo Intimates</title>
 </head>
 <body>
-    <h1> Program untuk mengatur Lining Mesin</h1>
-    <p id="position" style="background-color:blue;display:inline-block; padding:10px;color:#fff">Silahkan Gerakan Mouse Anda</p>
-    <div id="kontainer">
+    <h1 id="nama"> Program untuk mengatur Lining Mesin</h1>
+    <div id="container">
         <script src="./js/script.js"></script>
     </div>
-    <!-- <canvas id="toolBox"></canvas> -->
-    <!-- <canvas id="canvas"></canvas> -->
-    <!-- <script src="./script.js"></script> --> 
+    <div id="button">
+        <button id="save">Save as image</button><br><br>
+        <button id="createCut">Tambak Mesin Cutting</button><br><br>
+        <button id="createFinish">Tambak Mesin Finishing</button>
+    </div>
+    <script>
+        function downloadURI(uri, name){
+        let link = document.createElement('a');
+        link.download = name;
+        link.href = uri;
+        document.body.appendChild(link);
+        link.click();   
+        document.body.removeChild(link);
+        delete link;
+        }
+
+        document.getElementById('save').addEventListener(
+        'click',
+        function () {
+        var dataURL = stage.toDataURL({ pixelRatio: 3 });
+        var date = new Date();
+        var current_date = "_"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+ date.getDate();
+        var current_time = "_"+date.getHours()+date.getMinutes()+ date.getSeconds();
+
+        downloadURI(dataURL, 'stage'+current_date+current_time+'.png');
+        },
+        false
+        );
+
+        document.getElementById('createCut').addEventListener('click', function () {
+                addCut(layer)
+            });
+        document.getElementById('createFinish').addEventListener('click', function () {
+                addFinish(layer)
+            });
+    </script>
 </body>
 </html>
